@@ -1,0 +1,426 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%
+% Thammasat University Thesis Template
+% 1. Thesis.tex (this file)  edit:
+%    a. Thesis Data, e.g. title, author
+%    b. Committee members on the Signatures page
+%    c. Chapters
+%    d. Appendices
+% 
+% 2. The main content of the thesis should be in the following files:
+%    a. ack.tex
+%    b. abstract.tex
+%    c. acronyms.tex 
+%    d. chapter1.tex, chapter2.tex, ...
+%    e. appendixA.tex, appendixB.tex, ...
+%    f. refs.bib 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\documentclass[12pt,a4paper,oneside]{book}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%
+% Packages
+% (add/remove packages as needed)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+% Required packages for thesis layout (do not remove)
+\usepackage{TUthesis} 
+
+% Other packages (add/delete packages as desired)
+%\input{listing}
+\input{lstlisting}
+%\usepackage{graphicx}
+
+\usepackage{svn}
+\usepackage[plainpages=false]{hyperref}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{lscape}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{mwe}
+\usetikzlibrary{arrows,shadows,positioning,shapes,calc,shapes.geometric}
+\usepackage{graphicx}
+\usepackage{multirow}
+
+%\usepackage[superscript]{cite}
+\newfontfamily{\tt}[Scale=0.8]{Courier New}
+
+%\newfontfamily{\thaifont}[Scale=0.8]{Courier New}
+\newfontfamily{\thsarabun}{THSarabunNew}
+%\newfontfamily{\thaifont}[Path = /usr/local/share/fonts/]{THSarabunNew.ttf}
+%\newfontfamily{\haiBF}[Path = /usr/local/share/fonts/]{THSarabunNew Bold.ttf}
+%\newfontfamily{\thaiIT}[Path = /usr/local/share/fonts/]{THSarabunNew Italic.ttf}
+%\usepackage{multibib}
+%\newcites{book}{หนังสืออ้างอิง}
+%\newcites{journal}{วารสารอ้างอิง}
+
+%% figures that you want to include
+%\graphicspath{{./}{./figures/}}
+\graphicspath{{Figures/}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%
+% Thesis Data
+% (edit each field)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Thesis Title in mixed case
+\newcommand{\thesistype}{Thesis} %Thesis for Master or Dissertation for PhD
+\newcommand{\thaititle}{การวิเคราะห์วีดีทัศน์สำหรับธุรกิจค้าปลีก}
+\newcommand{\engtitle}{Video Analytics for retail operations}
+
+% Student name (author of the thesis)
+\newcommand{\thaiauthorc}{นายรัฐสรรค์ เอกอัครชวกิตติ์}
+\newcommand{\thaiauthorp}{นายพงศกร โกสมิง}
+\newcommand{\engauthorc}{Mr. Rattasan Aekaukkharachawakit }
+\newcommand{\engauthorp}{Mr. Pongsakorn Kosaming}
+
+
+% Degree that this thesis is for
+\newcommand{\thaidegree}{วิศวกรรมศาสตรบัณฑิต}
+\newcommand{\engdegree}{Bachelor of Engineering}
+
+\newcommand{\thaimajor}{วิศวกรรมคอมพิวเตอร์}
+\newcommand{\engmajor}{Computer Engineering}
+
+
+\newcommand{\thaidate}{29 กันยายน }
+
+% Academic year for thesis submission
+\newcommand{\thaiyear}{2560}
+\newcommand{\engyear}{2017}
+
+% Institute/department
+\newcommand{\thaifaculty}{คณะวิศวกรรมศาสตร์}
+\newcommand{\engfaculty}{Faculty of Engineering}
+
+
+\newcommand{\thaikeyword}{ฟิชชิง การยืนยันเซิร์ฟเวอร์ การยืนยันผู้ใช้}
+\newcommand{\engkeyword}{Phishing, server authentication, client authentication, certificates}
+
+\newcommand{\chairman}{ผู้ช่วยศาสตราจารย์ ดร. นพพร ลีปรีชานนท์ }
+\newcommand\advisor{รองศาสตราจารย์ ดร. ชนาทิพย์ นามเปรมปรีดิ์}
+\newcommand\engadvisor{Assoc. Prof. Chanathip Namprempre, Ph.D.}
+
+\newcommand\memberone{Metthew N. Dailey, Ph.D.}
+\newcommand\membertwo{รองศาสตราจารย์ ดร.จาตุรงค์ ตันติบัณฑิต}
+\newcommand\dean{รศ. ดร. }
+\setlength{\parindent}{0.8in}
+\def\shortbib{0}
+\newcommand*{\captionsource}[2]{%
+  \caption[{#1}]{%
+    #1%
+    \\\hspace{\linewidth}%
+    \textbf{แหล่งที่มา:} #2%
+  }%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%
+% Title Page
+% (do not edit)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\hyphen{authen-tication}
+
+\input{macros}
+
+\linespread{1.8}
+
+
+\begin{document}
+\frontmatter
+\addtocontents{toc}{\contheading}
+\setlength{\parskip}{0pt plus1pt minus1pt}
+
+\pagestyle{empty}
+\begin{center}
+\vspace*{6mm}
+	\begin{center}
+		\includegraphics[width=1in]{tu-logo-bw.jpg}\\
+	\end{center}
+	\vspace{1cm}
+%		\vspace*{\fill}
+%
+\begin{spacing}{1.4}
+\textbf{\huge\thaititle}
+\end{spacing}
+\vspace*{35mm}
+\textbf{โดย}\\
+\vspace*{10mm}
+\textbf{\thaiauthorc}\\
+\textbf{\thaiauthorp}\\
+\vfill
+\begin{spacing}{1.3}
+\textbf{
+โครงงานนี้เป็นส่วนหนึ่งของการศึกษาตามหลักสูตร\\
+\thaidegree \\ สาขา\thaimajor\\
+\thaifaculty \ มหาวิทยาลัยธรรมศาสตร์  \\
+ปีการศึกษา \thaiyear\\ ลิขสิทธิ์ของมหาวิทยาลัยธรรมศาสตร์
+}
+\end{spacing}
+\end{center}
+
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%
+% Signatures
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\pagestyle{empty}
+\begin{center}
+\vspace*{40mm}
+\begin{spacing}{1.4}
+\textbf{\huge\thaititle}
+\end{spacing}
+\vspace*{35mm}
+\textbf{โดย}\\
+\vspace*{10mm}
+\textbf{\thaiauthorc}\\
+\textbf{\thaiauthorp}\\
+\vfill
+\begin{spacing}{1.3}
+\textbf{
+โครงงานนี้เป็นส่วนหนึ่งของการศึกษาตามหลักสูตร\\
+\thaidegree \\ สาขา\thaimajor\\
+\thaifaculty \ มหาวิทยาลัยธรรมศาสตร์  \\
+ปีการศึกษา \thaiyear\\ ลิขสิทธิ์ของมหาวิทยาลัยธรรมศาสตร์
+}
+\end{spacing}
+\end{center}
+\newpage
+
+\pagestyle{empty}
+\begin{center}
+\vspace*{40mm}
+\begin{spacing}{1.4}
+\textbf{\huge\engtitle}
+\end{spacing}
+\vspace*{35mm}
+\textbf{BY}\\
+\vspace*{10mm}
+\textbf{\engauthorc}\\
+\textbf{\engauthorp}\\
+\vfill
+\begin{spacing}{1.3}
+\textbf{
+A PROJECT SUBMITTED IN PARTIAL FULFILLMENT OF THE\\
+REQUIREMENTS FOR THE DEGREE OF BACHELOR OF ENGINEERING \\
+IN COMPUTER ENGINEERING\\
+FACULTY OF ENGINEERING\\ THAMMASAT UNIVERSITY  \\
+ACADEMIC YEAR \engyear\\ COPYRIGHT OF THAMMASAT UNIVERSITY
+}
+\end{spacing}
+\end{center}
+\newpage
+%====
+
+\vspace*{2mm}
+\begin{center}
+มหาวิทยาลัยธรรมศาสตร์\\
+\textnormal{\thaifaculty} \\
+\vspace*{10mm}
+โครงงาน\\
+\vspace*{10mm}
+ของ\\
+\vspace*{10mm}
+\thaiauthorc\\
+\thaiauthorp\\
+\vspace*{10mm}
+เรื่อง\\
+\vspace*{10mm}
+\thaititle \\
+\vspace*{10mm}
+\begin{spacing}{1.3}
+ได้รับการตรวจสอบและอนุมัติ ให้เป็นส่วนหนึ่งของการศึกษาตามหลักสูตร\\
+\thaidegree
+\end{spacing}
+\vspace*{8mm}
+เมื่อวันที่ \thaidate พ.ศ. 2560 \\
+\end{center}
+\vspace*{2mm}
+%\vfill
+%~Approved as to style and content by\\[-2ex]
+\begin{table}[h]
+\setlength{\tabcolsep}{2.7ex}
+\begin{tabular}{ccc}
+							
+อาจารย์ที่ปรึกษาโครงงาน				& \\ \cline{2-2}
+							 		&(\advisor)\\[3ex]
+หัวหน้าภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์    	& \\ \cline{2-2}
+									& (\chairman)\\[3ex]
+							
+\end{tabular}
+\end{table}
+\newpage
+
+\setlength{\parindent}{0.8in}
+\pagestyle{plain}
+\setcounter{page}{1}
+  \renewcommand{\thepage}{(\arabic{page})} %\setcounter{page}{-1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%
+% Abstract
+% (do not edit here; instead edit the file abstract.tex)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\iffalse
+  \begin{table}[h]
+\setlength{\tabcolsep}{0.7ex}
+\begin{tabular}{ccc}
+%===========================================================================
+หัวข้อโครงงาน			    		&& \thaititle\\
+ชื่อผู้เขียน				  		&& \thaiauthorc\\ 
+&& \thaiauthorp \\
+ชื่อปริญญา						&& \thaidegree \\
+สาขาวิชา/คณะ/มหาวิทยาลัย	&& \thaimajor\ \thaifaculty\ มหาวิทยาลัยธรรมศาสตร์ \\
+อาจารย์ที่ปรึกษาโครงงาน    		&& \advisor\\
+ปีการศึกษา						&& \thaiyear \\
+\end{tabular}
+\end{table}
+\chapter*{บทคัดย่อ}
+\input{abstractth}
+\addcontentsline{toc}{section}{บทคัดย่อ}
+\addtocontents{toc}{\protect\vspace{\baselineskip}}
+
+\begin{center} {\Large บทคัดย่อ} \end{center}
+\input{abstractth}
+
+\vspace{8mm}
+\noindent \textbf{คำสำคัญ:} \thaikeyword
+
+\newpage
+\begin{table}[h]
+\setlength{\tabcolsep}{0.7ex}
+\begin{tabular}{ccc}
+%===========================================================================
+\thesistype \ Title			    		&& \engtitle\\
+Author				  		&& \engauthorc \\
+&& \engauthorp\\
+Degree						&& \engdegree \\
+Major Field/Faculty/University		&& \engmajor \\
+&& \engfaculty \\
+&& Thammasat University \\
+\thesistype \ Advisor			    		&& \engadvisor\\
+Academic Year						&& \engyear \\
+\end{tabular}
+\end{table}
+\addcontentsline{toc}{section}{Abstract}
+\addtocontents{toc}{\protect\vspace{\baselineskip}}
+
+\begin{center} \textbf{\Large ABSTRACT} \end{center}
+\input{abstract}
+
+ \vspace{8mm}
+ \noindent \textbf{keyword:} \engkeyword
+
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%
+% Acknowledgement
+% (do not edit here; instead edit the file ack.tex)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%\chapter*{กิตติกรรมประกาศ \\[-1em]}
+%\input{ack}
+%\addcontentsline{toc}{section}{กิตติกรรมประกาศ}
+%\addtocontents{toc}{\protect\vspace{\baselineskip}}
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%
+% Table of Contents, Figures and Tables
+% (comment/uncomment any tables/lists that you desire)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%\addcontentsline{toc}{section}{สารบัญ}
+\tableofcontents
+\newpage
+\addcontentsline{toc}{section}{สารบัญรูป}
+\addtocontents{toc}{\protect\vspace{\baselineskip}}
+\listoffigures
+\newpage
+\addcontentsline{toc}{section}{สารบัญตาราง}
+\addtocontents{toc}{\protect\vspace{\baselineskip}}
+\listoftables
+%\addcontentsline{toc}{section}{List of Listings}
+%\lstlistoflistings
+%\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%
+% List of Acronyms
+% (do not edit here; instead edit the file acronyms.tex)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\addcontentsline{toc}{section}{สัญลักษณ์และคำย่อ}
+\chapter*{สัญลักษณ์และคำย่อ \\[-1em]}
+\input{acronyms}
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%
+% Chapters
+% (edit the files chapter1.tex, chapter2.tex, ...)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\mainmatter
+\clearpage
+%\input{test}
+\input{chapter1}
+\newpage
+\input{chapter2}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%
+% References
+% (\bibliography refers to your BibTeX .bib file, e.g. refs.bib)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\renewcommand\bibname{รายการอ้างอิง}
+
+\backmatter
+\cleardoublepage % needed to ensure TOC page number is correct
+%% There is still a bug with the PDF hyperlink: clicking on the References
+%% link in the PDF takes you to last page of previous chapter, not to start
+%% of references
+\addcontentsline{toc}{section}{รายการอ้างอิง}
+
+%% These two commands are for when using BibTeX (i.e. most common)
+%% Change 'refs' to be the name of your .bib file
+
+%\bibliographystyle{plain} %vancouver
+\bibliographystyle{unsrt}
+\bibliography{crypto}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%
+% Appendices
+% (edit the files appendixA.tex, appendixB.tex, ...)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+%% \appendix
+%%  \part*{ภาคผนวก} 
+%% \setlength{\parindent}{0.8in}
+%% \input{appendixA}
+
+\end{document}
+

@@ -1,0 +1,50 @@
+\chapter{ผลการศึกษา}
+ภายในบทนี้เราจะแสดงให้เห็นถึงผลลัพธ์ที่เกิดจากการพัฒนาซอฟต์แวร์ด้วยระบบจดจำใบหน้าและการปรับเทียบกล้อง
+\section{ระบบตรวจจับใบหน้า การจดจำใบหน้าและระบบแยกแยะอารมณ์}
+จากที่กล่าวมาแล้วในบทที่ \ref{method} ระบบจดจำใบหน้าต้องมีการใช้การเรียนรู้ของโครงข่ายประสาทเทียมแบบเรียนรู้โดยต้องกำกับดูแล(supervised learning neural network) ซึ่งเราจำเป็นต้องเตรียมข้อมูลชุดทดสอบและชุดทดลองไว้ และทำการรันโปรแกรมจะได้ผลลัพธ์รูปที่ \ref{fig:resultCaffe}
+\begin{figure}[h!]
+  \centerline{
+    \includegraphics[width=6in, height=4in]{resultCaffe}
+  }
+  \caption{ผลลัพธ์จากการรัน Model}
+\label{fig:resultCaffe}
+\hrulefill
+\end{figure}
+
+\section{การปรับเทียบกล้อง(Camera Calibration)}
+จากที่กล่าวมาแล้วในบทที่ 3 ในส่วนของการพัฒนา เราทำการใช้รูปภาพตารางหมากรุกขนาดเท่าใดก็ได้ ซึ่งเราใช้ 8x8 มาทำการปรับเทียบกล้องซึ่งตัวโปรเเกรมที่รันด้ายคำสั่ง camera calibration in VID5.xml จะตรวจจับจุดบนตารางหมากรุกได้ขนาด 7x7จะได้ผลดังรูปที่ \ref{fig:00} เมื่อเราขยับแผ่นตารางหมากรุกไปอยู่หลายๆส่วนของกล้องดังรูปที่ \ref{fig:01} โปรแกรมจะทำการปรับเทียบและแก้ไขความบิดเบี้ยวของภาพ ได้ดังรูปที่ ซึ่งค่าในไฟล์ Out camera data.yml คือค่าที่กล้องปรับ จะทำการบันทึกรายละเอียดต่างๆดังรูปที่ \ref{fig:c4}
+\begin{figure}[h!]
+  \centerline{
+    \includegraphics[width=6in, height=4in]{00.jpg}
+  }
+  \caption{เริ่มปรับเทียบกล้อง}
+\label{fig:00}
+\hrulefill
+\end{figure}
+
+\begin{figure}[h!]
+  \centerline{
+    \includegraphics[width=6in, height=4in]{01.jpg}
+  }
+  \caption{ขณะปรับเทียบกล้อง}
+\label{fig:01}
+\hrulefill
+\end{figure}
+
+\begin{figure}[h!]
+  \centerline{
+    \includegraphics[width=6in, height=4in]{02.jpg}
+  }
+  \caption{ปรับเทียบเสร็จสมบูรณ์}
+\label{fig:02}
+\hrulefill
+\end{figure}
+
+\begin{figure}[h!]
+  \centerline{
+    \includegraphics[width=6in, height=4in]{c4.jpg}
+  }
+  \caption{ผลลัพธ์จากการปรับเทียบกล้อง}
+\label{fig:c4}
+\hrulefill
+\end{figure}

@@ -1,0 +1,281 @@
+i\chapter{การดำเนินงาน}
+\label{method}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%รายละเอียดระบบ
+ในเรื่องความปลอดภัย กล้องวงจรปิดถือว่าเป็นอุปกรณ์ที่สำคัญเป็นอย่างมากในการจับภาพ ซึ่งปัจจุบันในร้านค้าปลีกมีการติดตั้งกล้องวงจรปิดไว้หลายตัวเพื่อให้ได้ภาพหลายมุม ซึ่งประโยชน์ของกล้องวงจรปิด คือ บันทึกภาพไว้ตลอดเวลา เราจึงมองว่าการนำภาพที่บันทึกไว้ของกล้องวงจรปิดสามารถนำมาวิเคราะห์ให้เกิดประโยชน์ในด้านการบริการ จะเป็นเครื่องมือที่ช่วยให้ร้านค้าปลีกสามารถปรับปรุงและยกระดับการบริการได้ ซึ่งการวิเคราะห์ภาพวีดีโอนั้น มนุษย์เรามีความสามารถในการตรวจจับ การจดจำสิ่งต่างๆได้ แต่ว่ามนุษย์มีข้อจำกัดของสมองที่ไม่สามารถทำงานหนักได้ตลอด 24 ชั่วโมง เพราะเกิดความเมื่อยล้าและต้องการการพักผ่อน จึงทำให้เรานำหลักการของ ปัญญาประดิษฐ์ (artificial intelligence) เข้ามาช่วยในการทำงานแทนมนุษย์ โดยให้กล้องวงจรปิดเป็นแหล่งข้อมูลเข้าเปรียบเสมือนดวงตาของมนุษย์ และให้ส่วนของโปรแกรมที่เราพัฒนาขึ้นเปรียบเสมือนสมองของมนุษย์ที่ใช้วิเคราะห์และแยกแยะข้อมูล โดยเราทำการพัฒนาระบบขึ้นมาให้มีความสามารถในด้านการตรวจจับใบหน้า การจดจำใบหน้าและการแยกแยะอารมณ์จากใบหน้า เพื่อใช้ในการวิเคราะห์ เพื่อปรับปรุงคุณภาพการบริการของพนักงานร้านค้าปลีกนั้น
+
+ในบทนี้จะกล่าวถึงแนวคิดและหลักการของระบบตรวจจับใบหน้า การจดจำใบหน้า การแยกแยะอารมณ์ การปรับเทียบกล้องและส่วนของการพัฒนาระบบซึ่งจะอยู่ในรายละเอียดของระบบ
+\section{รายละเอียดของระบบ}
+ในการออกแบบระบบที่ทำการวิเคราะห์ข้อมูลซึ่งเป็นภาพวีดีโอจะมีส่วนประกอบหลักอยู่ 2 ส่วน คือ ระบบตรวจจับใบหน้า จดจำและแยกแยะอารมณ์จากใบหน้า, การปรับเทียบกล้อง เพื่อนำมาสร้างระบบที่ใช้ในการปรับปรุงคุณภาพการบริการของพนักงานได้ มีดังนี้
+\subsection{ระบบตรวจจับใบหน้า การจดจำใบหน้าและระบบแยกแยะอารมณ์}
+ขั้นตอนในการตรวจจับ จดจำ และแยกแยะอารมณ์จากใบหน้าจำเป็นจะต้องมีความเข้าใจในด้านปัญญาประดิษฐ์ซึ่งเป็นพื้นฐานที่สำคัญในการพัฒนาระบบซึ่งมีแนวคิด,หลักการและการพัฒนาที่จะกล่าวดังต่อไปนี้
+ในส่วนนี้จะอธิบายเกี่ยวกับสิ่งที่ได้ทำการศึกษาจาก model ของ  Nabil T. Karim \cite{nabil} และ Sanjana Jain \cite{sanjana}
+\subsubsection{แนวคิดและหลักการ}
+เนื่องจากการตรวจจับ จดจำและแยกแยะอารมณ์มีแนวคิดที่ให้เครื่องจักรทำงานแทนมนุษย์จึงต้องใช้ศาสตร์ปัญญาประดิษฐ์เข้ามาช่วยในการวิเคราะห์ข้อมูลขาเข้าซึ่งเป็นวีดีโอ ซึ่งนอกจากเราต้องเข้าใจแนวคิดของปัญญาประดิษฐ์แล้วเราต้องเข้าใจหลักการการทำงานของเครื่องด้วย ซึ่งเป็นเครื่องมือสำคัญที่จะช่วยในการทำงานด้านการประมวลผลข้อมูล
+
+\paragraph{\textbf{ระบบตรวจจับใบหน้า}} \label{facedetect}
+คือ ระบบที่สามารถตรวจจับใบหน้าของมนุษย์จากรูปภาพหรือวีดีโอได้ ซึ่ง Paul viola และ Michael J.Jones ได้นำเสนอเทคนิคการตรวจจับใบหน้าที่มีความเร็วและมีความถูกต้องในการตรวจจับสูงในปี 2001 ซึ่งเทคนิคนี้แบ่งออกเป็น 3 ขั้นตอนดังนี้
+\begin{enumerate}
+\item ภาพอินทิกรัล
+  ภาพอินทิกรัลจะทำให้ผลรวมของพิกเซลสามารถทำได้ง่ายและรวดเร็วโดยคำนวณเพียงครั้งเดียว ภาพอินทิกรัลสามารถสร้างได้ตามสมการ
+  \[ ii(x,y) = \sum_{x'\leq x, y' \leq y} i(x',y') \]
+  เมื่อ $ii(x,y)$ คือ ภาพอินทิกรัลและ $i(x’,y’)$ คือ ภาพนำเข้าจากไฟล์วิดิทัศน์ที่จะนำมาทำการค้นวัตถุที่ต้องการซึ่งจะทำไปใช้ ในขั้นตอนของ Cascade classifier ในหัวข้อถัดไป
+\item Haar-like feature
+  การหารูปร่างของใบหน้า (Feature) ในภาพจะใช้ตัวกรอง (Filter) ตาม ลักษณะพื้นฐานของ Haar wavelet จึงเรียกว่า Haar-like featureและ มีรูปร่างดังแสดงในรูปที่ \ref{fig:facedetectionPic1} ตัวกรองจะมีลักษณะเป็นสี่เหลี่ยม และแบ่งเป็น 2 ส่วนคือสีขาวและสีดํา ในการทํางาน ภาพจะถูกกรอง ด้วยตัวกรอง ที่มีขนาดต่าง ๆ กันและรูปร่างของป้ายที่ได้จากตัว กรองนี้จะนําไปใช้ในการกําหนดลักษณะของตัวจําแนกอย่างอ่อนดังในสมการที่(2)และ(3) ต่อไป
+   \begin{center}
+ \begin{figure}[h!]
+  \centerline{
+    \includegraphics[width=7in]{facedetectionPic1.jpg}
+    }
+  \centering
+  \caption{ตัวอย่างการทำงานของ haar-like}
+  \label{fig:facedetectionPic1}
+  \hrulefill
+\end{figure}
+   \end{center}
+\item การเรียนรู้แบบ Adaboost และ Cascade classifiers
+  ขั้นตอนวิธีการเรียนรู้แบบ Adaboost  เป็นวิธีการเรียนรู้เพื่อค้นหาค่าของกลุ่มพิกเซลที่มีลักษณะใกล้เคียงกับภาพนำเข้าโดยภาพ positive คือ  ภาพวัตถุที่ต้องการตรวจจับ ส่วนภาพ negative คือ ภาพทั่วไปที่ไม่ใช่วัตถุที่ต้องการตรวจจับ ซึ่งการจำแนกกลุ่มของพิกเซลจะทำภายในส่วนย่อย(sub window)ของภาพโดยใช้ตัวจำแนกอย่างอ่อนของ feature ที่ $h_j$ ที่หาได้จากสมการ
+  \begin{equation*}
+    h_j(x) = \begin{cases}
+      -1 \text{ if $f_j(x) \leq 0$} \\
+      1 \text{ otherwise}
+      \end{cases}
+  \end{equation*}
+  เมื่อ $f(x)$ คือค่าความแตกต่างของผลรวมพิกเซลในพื้นที่ขาว และดําของ Haar-like feature มีค่าตามสมการ
+  \[ f(x) = B - W \]
+โดยที่ $x$ คือ ภาพตัวอย่างที่เป็นภาพขาวดำ $B$ คือผลรวมของค่าพิกเซลในบริเวณที่เป็นสีดำของภาพ $x$ และ $W$ คือผลรวมของค่าพิกเซลในบริเวณที่เป็นสีขาวของภาพ $x$
+
+AdaBoost learning algorithm เป็นวิธีหาค่าตัวจําแนกอย่างอ่อน ที่มี ความผิดพลาดของน้ำหนักน้อยที่สุด $h_t$ เพื่อนําไปปรับน้ำหนักใน รอบถัดไป (t +1)โดยเลือกส่งเสริม (boosting) น้ำหนักตัวที่ไม่ ผ่านการจําแนก แต่ลดน้ำหนักตัวที่ผ่านการจําแนกตามขั้นตอนวิธี Cascade classifiers จนได้ตัวจําแนกที่แข็งแรง เพื่อนําไปใช้ในการตรวจจับใบหน้า
+
+  การรวมตัวจำแนกกลุ่มแบบต่อเรียง (Cascade classifiers) เป็นวิธีการจําแนกรูปร่างที่ต้องการ โดยนําการ จําแนกดังที่กล่าวมาแล้วมาทําซ้ำหลาย ๆ รอบ (stage) ซึ่งในแต่ละ รอบก็จะตัดพื้นที่ ที่เป็นภาพ negative ออกไปในทุกรอบที่พบ เมื่อ จบกระบวนการแล้ว จํานวนของ sub window ที่เป็น negative จะ ลดลง จนได้รูปร่างที่ต้องการ และในการจําแนกเพื่อหารูปร่างที่ ต้องการนี้จะทํากับภาพอินทิกรัล ดังที่กล่าวมาแล้วในหัวข้อที่ 2.1.1 ซึ่งขั้นตอนของ Cascade Classifiersแสดงได้ดังรูปที่ \ref{fig:facedetectionPic2}
+ \begin{center}
+ \begin{figure}[t]
+  \centerline{
+    \includegraphics[width=7in]{facedetectionPic2.jpg}
+    }
+  \centering
+  \caption{ตัวอย่างการทำงานของ Cascade Classifiers}
+  \label{fig:facedetectionPic2}
+  \hrulefill
+\end{figure}
+   \end{center}
+\end{enumerate}
+
+\paragraph{\textbf{ระบบจดจำใบหน้า}}
+คือ ระบบที่สามารถจดจำใบหน้าของมนุษย์ได้เมื่อใบหน้าปรากฏบนภาพหรือวีดีโอ โดยที่ ระบบจะต้องทำการจดจำใบหน้านั้นด้วย
+\begin{description}
+\item[dataset:] คือชุดข้อมูลที่นำมาฝึก model ให้สามารถรู้จำใบหน้าได้โดยจะนำมาภาพจากกล้องวงจรปิดที่ Hom Krun Coffee และ online database CASIA WebFace databaseโดยแบ่งข้อมูลเป็น 3 ชุดคือ train,validate และ test
+  
+  \begin{itemize}
+    \item training and validation dataset เป็นชุดข้อมูลที่ป้อนเข้า model เพื่อให้เรียนรู้วิธีการจดจำใบหน้าโดยชุดข้อมูลที่นำมา train จะทำการติดฉลาก(labels) ด้วยหมายเลข ID และเก็บไว้ที่ไฟล์ labels.txt
+
+    \item testing dataset เป็นชุดข้อมูลที่จะป้อมเข้า model เพื่อทดสอบความแม่นยำในการจดจำใบหน้าของ model
+  \end{itemize}
+\item[caffe model:] เราจะสร้าง convolution neural network ซึ่งได้อธิบายไว้ใน 2.3 โดยยึดตาม Wen et al. (2016)
+
+  โดย model จะประกอบด้วย 27 convolution layers โดยในแต่ละชั้นจะตามด้วย PRELU layers เมื่อผ่าน convolution layers แล้วจะตามด้วย max-pooling layers 11 ชั้นจากนั้นจะผ่าน fully connected layer 2 ชั้นโดยโครงสร้างของ convolution neural network จะถูกเก็บที่ไฟล์ deploy.prototxt
+
+\item[training:] ในที่นี้คือการฝึก model ให้รู้จำใบหน้าโดยในระบบนี้จะแบ่ง class ตามจำนวนชุดข้อมูลที่นำเข้าเช่น CASIA WebFace database ที่มี 10,575 ตัวอย่างก็จะมี 10,575 class โดยจะกำหนดที่ fully connected layer ในแต่ละ layer จะทำการสุ่ม weight ด้วย gaussian distribution ที่มีค่าเฉลี่ยเท่ากับ 0 และส่วนเบี่ยงเบนมาตรฐานเท่ากับ 0.01
+
+\item[testing:] เป็นการทดสอบความแม่นยำของ model โดยจะมีวิธีการคือสร้างคู่ของภาพเช่นถ้าถ่ายภาพ 10 ภาพต่อคนจะมีคู่ของภาพ 45 คู่ โดยภาพที่จับคู่ได้ถูกต้องจะให้เป็น 1 รูปที่จับคู่ไม่ถูกต้องจะให้เป็น 0
+\end{description}
+
+\paragraph{\textbf{การแยกแยะอารมณ์(Emotion Classification)}}
+คือ ระบบที่สามารถแยกอารมณ์ของใบหน้าได้ ซึ่งจะมี 3 ระดับ ได้แก่ ดี ปานกลาง และแย่ โดยระบบจะต้องทำการเรียนรู้การแสดงออกของสีหน้าเพื่อใช้ในการวิเคราะห์อารมณ์ของใบหน้า
+\begin{description}
+\item[dataset:] คือ ชุดข้อมูลที่นำมาฝึก model ให้สามารถรู้จำใบหน้าได้โดยจะนำมาภาพจากกล้องวงจรปิดที่ Hom Krun Coffee และ online database CASIA WebFace database โดยแบ่งข้อมูลเป็น 3 ชุดคือชุด train,validate และ test
+\begin{itemize}
+  \item training and validation dataset เป็นชุดข้อมูลที่ป้อนเข้า model เพื่อให้เรียนรู้วิธีการแยกแยะอารมณ์จากใบหน้าโดยชุดข้อมูลที่นำมา train จะทำแยกออกเป็น 3 folder คือ positive neutral และ negative จากนั้นจะนำไปเก็บไว้ที่ไฟล์ labels.txt โดย positive คือภาพที่มีลักษณะเป็นไปในเชิงบวกเช่น ยิ้ม หรือ ดีใจ neutral คือภาพที่ไม่แสดงอารมณ์ negative คือภาพที่มีลักษณะเป็นไปในเชิงลมเช่น โกรธ  
+\item testing dataset เป็นชุดข้อมูลที่จะป้อนเข้า model เพื่อทดสอบความแม่นยำในการแยกแยะอารมณ์จากใบหน้า model
+\end{itemize}
+\item[caffe model:] เราจะสร้าง convolution neural network ซึ่งได้อธิบายไว้ใน 2.3 โดยยึดตาม Levi and Hassncer ซึ่งจะประกอบด้วย convolution layers 3 ชั้น โดยขั้นแรกจะปรับขนาดของรูปภาพเป็นขนาด 227 x 227 เพื่อนำไปเป็นข้อมูลน้ำเข้าของ modelโดยจะมี 96 filter โดยแต่ละ filter จะมีขนาด 3 x 7 x 7 โดยเลื่อนครั้งละ 4 ผลลัพธ์ที่ได้จะมีขนาด 56 x 56 x 96 ด้วย ReLUจากนั้นจะนำไปผ่าน max-pooling layers ที่มีขนาด 3 x 3 โดยเลื่อนครั้งละ 2 ซึ่งจะได้ผลลัพธ์ที่มีขนาด 28 x 28 x 96 ชั้นที่สองจะมี 256 filter ขนาด 96 x 5 x 5 โดยเลื่อนครั้งละ 1 และมีการ padding 2 จะได้ผลลัพธ์ที่มีขนาด 28 × 28 × 256 จากนั้นนำไปผ่าน max-pooling layersจะได้ผลลัพธ์ที่มีขนาด 14 × 14 × 256 ชั้นที่สามจะมี 384 filter ขนาด 256 x 14 x 14 เลื่อนครั้งละ 1 และมีการ padding 1 จะได้ผลลัพธ์ที่มีขนาด 14 x 14 x 384 จากนั้นนำไปผ่าน max-pooling layers จะได้ผลลัพธ์ขนาด 7 x 7 x 384 fully connected layers จะมีทั้งหมด 3 ชั้นโดยชั้นแรกและชั้นที่ 2 จะมี 512 neurons และชั้นสุดท้ายจะมี 3 neurons ตามการแบ่ง class
+
+\item [training:] แยกชุดทดสอบออกเป็น 3 class ได้แก่ positive neutral negative ในแต่ละ layer จะทำการสุ่ม weight ด้วย gaussian distribution ที่มีค่าเฉลี่ยเท่ากับ 0 และส่วนเบี่ยงเบนมาตรฐานเท่ากับ 0.01
+
+\item [testing:] หลังจากนำภาพผ่าน model แล้วจะมีการคำนวนค่าความน่าจะเป็นสำหรับ 3 class ด้วยลักษณะการเคลื่อนไหวของริมฝีปาก ตำแหน่งคิ้ว เป็นการทดสอบความแม่นยำของ model โดยจะมีวิธีการคือสร้างคู่ของภาพเช่นถ้าถ่ายภาพ 10 ภาพต่อคนจะมีคู่ของภาพ 45 คู่ โดยภาพที่จับคู่ได้ถูกต้องจะให้เป็น 1 รูปที่จับคู่ไม่ถูกต้องจะให้เป็น 0
+\end{description}  
+
+\subsubsection{การพัฒนาระบบ}
+ในส่วนของการพัฒนาระบบ เราจำเป็นต้องติดตั้ง Library ที่ใช้ในการวิเคราะห์ข้อมูลวีดีโอโดย Library ที่ใช้งาน ได้แก่ OpenCV Library (Open Source Computer Vision Library) ใช้สำหรับเขียนโปรแกรมหรือพัฒนาซอฟต์แวร์ให้สามารถนำไปใช้งานด้านการประมวลผลภาพ ในโครงงานนี้ใช้งาน Library ของ OpenCV เพราะเราออกแบบให้มี ระบบตรวจจับใบหน้า ระบบจดจำใบหน้า และระบบแยกแยะอารมณ์รวมถึงการปรับเทียบกล้อง ซึ่งระบบดังกล่าวมีการใช้งาน Library ของ OpenCV Library, Python Library ซึ่งเป็นการติดตั้งภาษา Python ที่เป็นกาษาที่ใช้ในการเขียนโปรแกรมภาษาหนึ่งซึ่งถูกพัฒนาขึ้นมาโดยไม่ยึดติดกับแพลตฟอร์ม กล่าวคือ สามารถรันภาษา Python ได้ทั้งบนระบบ Unix, Linux, Windowsได้ โดยภาษา Python เป็น Open Source ซึ่งเหตุผลที่ลง Python เพราะ Caffe ซึ่งเป็นชุดคำสั่งสำหรับใช้งาน deep neural network ตระกูล convolutional neural network หรือ CNN ถูกเขียนด้วยภาษา Python ซึ่ง Caffe ที่ถูกเขียนขึ้นมานี้สามารถใช้ประโยชน์จาก GPU (graphic processing unit ) บนเครื่องได้ ซึ่งการที่จะใช้งาน GPU บนเครื่องเราต้องลง CUDA Library ซึ่ง CUDA คือสถาปัตยกรรมหนึ่งที่ถูกสร้างขึ้นโดย NVIDIA โดยจะประกอบด้วย ตัวกราฟิกการ์ดProgramming Modelและคอมไพเลอร์ ที่จะช่วยในการเขียนโปรแกรมแบบขนาน (Parallel Programming) ที่ทำงานบนกราฟิกการ์ดได้
+
+\paragraph{\textbf{ขั้นตอนการติดตั้ง Library}}
+การติดตั้ง OpenCV
+
+	ขั้นตอนการติดตั้ง Library OpenCV เวอร์ชั่น 2.4.13 บน Ubuntu เวอร์ชั่น 16.04.02 LTS โดยเราเลือกใช้เวอร์ชั่นของ OpenCV และ Ubuntu ที่ระบุมานี้ เพราะ ระบบตรวจจับ จดจำและแยกแยะอารมณ์จากใบหน้าถูกเขียนมาในเวอร์ชั่นข้างต้น ซึ่งเราต้องการให้ระบบเจอ Library ของ OpenCV
+        \begin{enumerate}
+          \item install dependencies โดยเปิด terminal ขึ้นมาและรันคำสั่งดังรูปที่ \ref{opencv1}
+\begin{figure}[t]
+  \begin{lstlisting}
+      #sudo apt-get install -y build-essential
+      #sudo apt-get install -y cmake
+      #sudo apt-get install -y libgtk2.0-dev
+      #sudo apt-get install -y pkg-config
+      #sudo apt-get install -y python-numpy python-dev
+      #sudo apt-get install -y libavcodec-dev libavformat-dev libswscale-dev
+      #sudo apt-get install -y libjpeg-dev libpng12-dev libtiff5-dev libjasper-dev
+      #sudo apt-get -qq install libopencv-dev build-essential checkinstall cmake pkg-config
+      yasm libjpeg-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev
+      libdc1394-22-dev libxine2 libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
+      libv4l-dev python-dev python-numpy libtbb-dev libqt4-dev libgtk2.0-dev
+      libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev
+      libvorbis-dev libxvidcore-dev x264 v4l-utils
+\end{lstlisting}
+\caption{คำสั่งที่ใช้ในการ install dependencies}
+\label{opencv1}
+\hrulefill
+\end{figure}
+\item ดาวน์โหลด OpenCV 2.4.13 และทำการ unzip ด้วยคำสั่งดังรูปที่ \ref{opencv2}
+  \begin{figure}[t]
+\begin{lstlisting}
+      #wget http://downloads.sourceforge.net/project/opencvlibrary/opencv-unix/2.4.13/opencv-2.4.13.zip
+      #unzip opencv-2.4.13.zip
+      #cd opencv-2.4.13
+      #mkdir release
+      #cd release
+\end{lstlisting}
+\caption{คำสั่งที่ใช้ในการดาวน์โหลด OpenCV 2.4.13}
+\label{opencv2}
+\hrulefill
+  \end{figure}
+\item คอมไพล์และติดตั้งด้วยคำสั่งตามรูปที่ \ref{opencv3}
+  \begin{figure}[t]
+\begin{lstlisting}
+       #cmake -G "Unix Makefiles" -DCMAKE_CXX_COMPILER=/usr/bin/g++
+       #CMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_BUILD_TYPE=RELEASE
+       -DCMAKE_INSTALL_PREFIX=/usr/local -DWITH_TBB=ON
+       -DBUILD_NEW_PYTHON_SUPPORT=ON -DWITH_V4L=ON -DINSTALL_C_EXAMPLES=ON
+       -DINSTALL_PYTHON_EXAMPLES=ON -DBUILD_EXAMPLES=ON -DWITH_QT=ON
+       -DWITH_OPENGL=ON -DBUILD_FAT_JAVA_LIB=ON -DINSTALL_TO_MANGLED_PATHS=ON
+       -DINSTALL_CREATE_DISTRIB=ON -DINSTALL_TESTS=ON -DENABLE_FAST_MATH=ON
+       -DWITH_IMAGEIO=ON -DBUILD_SHARED_LIBS=OFF -DWITH_GSTREAMER=ON ..
+       #make all -j2 # 2 cores
+       #sudo make install
+\end{lstlisting}
+\caption{คำสั่งที่ใช้ในการติดตั้งและคอมไพล์ OpenCV 2.4.13}
+\label{opencv3}
+\hrulefill
+  \end{figure}
+   \end{enumerate}
+  การติดตั้ง Python
+  จากรูปที่ \ref{python1} โดยคำสั่งแรกจะเป็นการติดตั้ง pip ซึ่งเป็นตัวจัดการ package ที่ทำหน้าที่ติดตั้งและถอนการติดตั้งของ python หลังจากนั้นคำสั่งที่สองจะเป็นการติดตั้ง python ในที่นี้จะเป็นการติดตั้ง python เวอร์ชั่น 2.7 คำสั่งที่สามเป็นคำสั่งที่ใช้ในการติดตั้งชุดคำสั่งของ python ที่จำเป็นในการใช้งาน
+  \begin{figure}[t]
+\begin{lstlisting}
+       #sudo apt-get install -y python-pip
+       #sudo apt-get install -y python-dev
+       #sudo apt-get install -y python-numpy python-scipy	
+\end{lstlisting}
+\caption{คำสั่งที่ใช้ในการติดตั้ง python}
+\label{python1}
+\hrulefill
+  \end{figure}
+  
+  การติดตั้ง Caffe
+  
+  ขั้นต่อมานั้นเราจะทำการติดตั้ง Caffe โดยในการติดตั้ง Caffe นั้นจะทำได้ 2 รูปแบบคือ ติดตั้งโดยให้โปรแกรมทำงานกับ CPU เท่านั้น และ ติดตั้งโดยให้โปรแกรมทำงานร่วมกับ GPU
+  วิธีการติดตั้งโดยให้โปรแกรมทำงานกับ CPU เท่านั้นมีรายละเอียดดังนี้
+
+  \begin{enumerate}
+    
+  \item ทำการติดตั้ง Library ที่จำเป็นโดยใช้คำสั่งดังรูปที่ \ref{caffe1}
+    \begin{figure}[t]
+\begin{lstlisting}
+       #sudo apt-get update
+       #sudo apt-get upgrade
+       #sudo apt-get install -y build-essential cmake git pkg-config
+       #sudo apt-get install -y libprotobuf-dev libleveldb-dev libsnappy-dev libhdf5-serial-dev protobuf-compiler
+       #sudo apt-get install -y libatlas-base-dev 
+       #sudo apt-get install -y --no-install-recommends libboost-all-dev
+       #sudo apt-get install -y libgflags-dev libgoogle-glog-dev liblmdb-dev	
+\end{lstlisting}
+\caption{คำสั่งที่ใช้ในการติดตั้ง Library ที่จำเป็น}
+\label{caffe1}
+\hrulefill
+  \end{figure}
+  \item จะทำการโหลด Source Code จาก {https://github.com/BVLC/caffe} มาติดตั้งไว้ในเครื่องที่โฟล์เดอร์ {home}
+  \item ทำการคัดลอกและเปลี่ยนชื่อไฟล์ Makefile.config.example เป็น Makefile.config ด้วยคำสั่ง
+    cp Makefile.config.example Makefile.config
+  \item เข้าไปที่ไฟล์  Makefile.config และหาบรรทัดที่ระบุว่า CPU ONLY = 1เพื่อลบเครื่องหมาย comment ออก
+  \item หาบรรทัดที่ระบุว่า PYTHON INCLUDE = เพื่อติม Path ที่เป็นที่อยู่ของ python Library ในที่นี้คือ
+    /usr/include/python2.7 /usr/local/lib/python2.7/dist-packages/numpy/core/include
+  \item บรรทัดที่ระบุว่า INCLUDE DIRS = (PYTHON INCLUDE) เพื่อเพิ่ม Path ของโฟล์เดอร์ที่เก็บ Source Code ที่จำเป็นสำหรับการประมวลผลในที่นี้คือ
+    /usr/local/include /usr/include/hdf5/serial
+  \item หาบรรทัดที่ระบุว่า LIBRARY DIRS = (PYTHON LIB) เพื่อเพิ่ม Path ของโฟล์เดอร์ที่เก็บLibrary ที่จำเป็นสำหรับการประมวลผลในที่นี้คือ
+    /usr/local/lib /usr/lib /usr/lib/x86 64-linux-gnu /usr/lib/x86 64-linux-gnu/hdf5/serial
+  \item เพื่อให้ระบบมองเห็นไฟล์ Library libhdf5.so และ libhdf5 hl.so จึงต้องเข้าไปที่โฟล์เดอร์ /usr/lib/x86 64-linux-gnu และใช้คำสั่ง
+    sudo ln -s libhdf5 serial.so.8.0.2 libhdf5.so
+    sudo ln -s libhdf5 serial hl.so.8.0.2 libhdf 5hl.so
+  \item ทำการ Complie Source Code ด้วยคำสั่งดังรูปที่ \ref{caffe2}
+   \begin{figure}[t]
+\begin{lstlisting}
+       #make all
+       #make test
+       #make runtest
+       #make pycaffe	
+\end{lstlisting}
+\caption{คำสั่งที่ใช้ในการ complie caffe source code}
+\label{caffe2}
+\hrulefill
+   \end{figure}
+   
+  \end{enumerate}
+  วิธีการติดตั้งโดยให้โปรแกรมทำงานร่วมกับ GPUมีรายละเอียดดังนี้
+  โดยในการติดตั้งโปรแกรมร่วมกับ GPU นั้นจะมีข้อแตกต่างจากกรณีที่ติดตั้งเพื่อให้โปรแกรมทำงานร่วมกับ CPU เท่านั้นในขั้นตอนที่ 4 โดยเราจะไม่ลบ comment ออก จากนั้นหาบรรทัดที่ระบุว่า CUDA DIR := เพื่อเพิ่ม Path สำหรับระบุตำแหน่งของโฟล์เดอร์ที่เก็บ Source Code Cuda โดยในที่นี้คือ CUDA DIR := /usr/local/cuda-8.0
+  
+ \textbf{ขั้นตอนการ Set path และ configuration}
+  เมื่อได้รับ Model ที่จะทำการศึกษาจาก Nabil T. Karim \cite{nabil} และ Sanjana Jain \cite{sanjana} แล้วเราทำการเปลี่ยน Path จากรูปที่ \ref{fig:before} เป็นรูปที่ \ref{fig:after}
+ \begin{center}
+ \begin{figure}[t]
+  \centerline{
+    \includegraphics[width=7in]{MakeFile.png}
+    }
+  \centering
+  \caption{Makefile ต้นฉบับ}
+  \label{fig:before}
+  \hrulefill
+\end{figure}
+ \end{center}
+
+  \begin{center}
+ \begin{figure}[t]
+  \centerline{
+    \includegraphics[width=7in]{MakeFileEdit.png}
+    }
+  \centering
+  \caption{Makefile ที่ถูกแก้ไข}
+  \label{fig:after}
+  \hrulefill
+\end{figure}
+   \end{center}
+\subsection{การสร้าง model 3 มิติ}
+การสร้าง model 3 มิตินั้นเพื่อให้สามารถระบุตำแหน่งของบุคคลที่อยู่ในภาพโดยขั้นตอน
+  \subsubsection{การปรับเทียบกล้อง}
+  งานด้าน computer vision มีการใช้งานกล้องเพื่อนำรูปภาพไปตีความและการวิเคราะห์ภาพ ซึ่งการจะนำภาพไปใช้งานได้นั้น ในขั้นตอนแรกก่อนที่จะทำในข้อ \ref{facedetect}ก่อนอื่นเราจำเป็นต้องทำการสอบเทียบกล้องซึ่งถือเป็นขั้นตอนที่สำคัญมากเพื่อกำจัดความบิดเบี้ยวของภาพ โดยเราต้องทำการปรับเทียบกล้องแบบภายใน (Intrinsic) และภายนอก (Extrinsic) ซึ่งการปรับเทียบที่เราทำในขั้นตอนถัดไปเป็นการปรับเทียบแบบภายใน เพื่อหาค่า intrinsic parameter ซึ่งจะอยู่ในไฟล์ Out camera data.yml ซึ่งจะกล่าวในขั้นตอนถัดไป
+  ขั้นตอนการปรับเทียบกล้องด้วย OpenCV
+  \begin{enumerate}
+  \item เข้าไปที่ไดเรกทอรี่ /home/opencv-2.4.13/samples/cpp/tutorial code/calib3d/camera calibration  และในโฟลเดอร์ camera calibration จะประกอบไปด้วยไฟล์ ทั้งหมด 4 ไฟล์ ได้แก่ Camera calibration.cpp , in VID5.xml , Out camera data.yml , VID5.xml 
+  \item ทำการคัดลอกโฟลเดอร์ camera calibration ไปไว้ที่พาธ ~/Desktop/
+  \item เข้าไปที่โฟลเดอร์ camera calibration ที่ทำการคัดลอกมาและทำการแก้ไขไฟล์ in VID5.xml ที่แท็ก <Settings> ให้มีค่าดังรูปที่ \ref{calibration1}
+       \begin{figure}[t]
+\begin{lstlisting}
+       <BoardSize_Width> 7 </BoardSize_Width>
+       <BoardSize_Height> 7 </BoardSize_Height>
+       <Input> "0" </Input>
+       <Input_Delay> 800 </Input_Delay>	
+\end{lstlisting}
+\caption{ค่าที่ถูกแก้ไขในไฟล์ in VID5.xml }
+\label{calibration1}
+\hrulefill
+       \end{figure}
+     \item เปิดเทอมินอลขึ้นมาและไปที่ไดเรกทอรี่ ~/Desktop/calibration/
+     \item ทำการคอมไพล์โปรแกรมด้วยคำสั่ง
+        camera calibration.cpp -o camera calibration (pkg-config --cflags --libs opencv)
+     \item เมื่อทำการคอมไพล์โปรแกรม จะได้ไฟล์ execute ของโปรแกรมที่มีชื่อว่า
+       camera calibration
+     \item รันโปรแกรมด้วยคำสั่ง
+       camera calibration in VID5.xml
+     \item ผลลัพธ์ที่ได้ คือไฟล์ Out
+       camera data.yml
+ \end{enumerate}
+
+\subsubsection{}
+\subsubsection{}

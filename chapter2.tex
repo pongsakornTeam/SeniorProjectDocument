@@ -1,0 +1,137 @@
+\chapter{วรรณกรรมและงานวิจัยที่เกี่ยวข้อง}
+\label{literature}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%
+\section{Neural network \cite{Neuron}}
+Neural Network หรือโครงข่ายประสาทเทียมเป็นแบบจำลองทางคณิตศาสตร์
+ที่ใช้ในการจำลองการทำงานของโครงข่ายประสาทของมนุษย์โครงข่ายประสาทเทียม ประกอบด้วย เซลล์ประสาทเทียมเรียกว่าโหนด (node) และจุดประสานประสาทที่ทำหน้าที่เชื่อมระหว่างเซลล์ประสาทเรียกกว่าค่าน้ำหนัก (weights) ซึ่งโครงข่ายประสาทเทียมจะแบ่งเป็น 3 ชั้นซึ่งประกอบด้วย ชั้นนำเข้า (input layer) ชั้นซ่อน (hidden layer) ชั้นส่งออก (output layer) ดังรูปที่ \ref{fig:neuron-network}
+
+ชั้นนำเข้า (input layer) เป็นชั้นที่รอรับข้อมูลเพื่อป้อนเข้าสู่โครงข่ายประสาทเทียม
+
+ชั้นซ่อน (hidden layer) เป็นชั้นที่เพิ่มประสิทธิภาพในการจัดกลุ่มข้อมูลโดยสามารถคำนวณได้ดังสมการ
+\[y_j = f(\sum_{i=1}^N x_i w_{ij} + \theta_j)\]
+โดยที่ \(y_j\) คือ ผลลัพธ์ในชั้นซ่อน หรือข้อมูลส่งออกในชั้นซ่อนที่โหนด j
+
+\(x_i\) คือ ข้อมูลนำเข้าที่โหนด i ในชั้นนำเข้า
+
+\(w_{ij}\) คือ น้ำหนักบนเส้นเชื่อมระหว่างโหนดที่ i และ โหนดที่ j ในชั้นซ่อน
+
+\(\theta_j\) คือค่าโน้มเอียงของโหนด j ในชั้นซ่อน
+
+โดยภายในโหนดจะมีส่วนประกอบคือ
+ ข้อมูลป้อนเข้า (input) ,
+ ข้อมูลส่งออก (output) ,
+ ค่าน้ำหนัก (weight) และ
+ ฟังก์ชั่นในการคำนวน ดังรูปที่ \ref{fig:neuron}โดยตัวอย่างฟังก์ชั่นในการคำนวณเช่น ฟังก์ชันซิกมอยด์
+ 
+   Sigmoid เป็นฟังก์ชั่นที่สร้างตัวเลขในช่วงระหว่าง 0 ถึง 1 โดยตัวเลขที่มีค่าไปทางบวกมาก จะเข้าใกล้ 1 และตัวเลขที่มีค่าไปทางลบมากจะเข้าใกล้ 0 ตามสมการ
+    \[\sigma(x) = \frac{1}{1+e^x}\]
+    โดยที่ \(\sigma(x)\) คือ sigmoid function
+    
+    \(x\) คือผลลัพธ์ที่ได้จาก \(\sum_{i=1}^N x_i w_{ij} + \theta_j\)
+
+    \(e\) มีค่าประมาณ 2.71828
+ 
+        \subsection{Back Propagation}
+        โดยการฝึกโคร่งข่ายประสาทเทียม (Neuron network) ให้สามารถรู้จำได้จะใช้อัลกอริทึม
+        Back Propagation โดยจะมีวิธีการดังนี้ 
+        \begin{enumerate}[label=2.1.\arabic*]
+      \item{สุ่มค่าน้ำหนัก(weight)}ให้กับแต่ละเซลล์ (neuron)
+      \item{กำหนดค่าโน้มเอียง (bias) }เป็นค่าเริ่มต้าในขั้นตอนแรกโดยจะมีค่าเท่ากับ 1 หรือสุ่มขึ้นมา
+      \item{นำข้อมูลเข้าไปในโคร่งข่ายประสาทเทียมผ่านชั้นนำเข้า (input layer) }
+      \item{คำนวนค่านำเข้า(input)และค่าส่งออก(output)ในแต่ละชั้น (layer) }
+      \item{คำนวนค่าคลาดเคลื่อนในแต่ละชั้น (layer) }โดยคำนวนจากชั้นส่งออก (output layer) จากนั้นจึงคำนวนชั้นถัดมาโดยค่าคลาดเคลื่อนจะคิดได้จากผลต่างของค่าส่งออก (output) เทียบกับค่าเป้าหมาย (target)
+      \item{ปรับค่าน้ำหนักและค่าโน้มเอียงใหม่จากค่าคลาดเคลื่อนที่ได้}
+      \item{ทำกระบวนการเดิมไปเรื่อยๆเพื่อเพิ่มความแม่นยำในการรู้จำของเครื่อง} โดยจะหยุดทำเมื่อค่าคลาดเคลื่อนมีเพิ่มขึ้นหรือคงที่
+        \end{enumerate} 
+\begin{center}
+  \begin{figure}[t]
+   \captionsetup{justification=centering}
+    \centering
+    \includegraphics[width=3in]{neuron_model.jpeg}
+  \captionsource{ภาพตัวอย่างการทำงานของเซลล์ประสาทเทียม (Neuron)}{http://cs231n.github.io/neural-networks-1/}
+  \label{fig:neuron}
+  \hrulefill
+\end{figure}
+ \end{center}
+  \begin{center}
+  \begin{figure}[t]
+    \captionsetup{justification=centering}
+    \centering
+    \includegraphics[width=3in]{neural_net.jpeg}
+  \captionsource{ภาพตัวอย่างการทำงานของโครงข่ายประสาทเทียม (Neural network)}{http://cs231n.github.io/neural-networks-1/}
+  \label{fig:neuron-network}
+  \hrulefill
+\end{figure}
+  \end{center}
+ \section{Deep neural network} Deep neural network เป็นหัวข้อหนึ่งของ การเรียนรู้ของเครื่อง (machine learning) โดยจะมีลักษณะเหมือนกับโครงข่ายประสาทเทียม (neural network) เพียงแต่มีจำนวน hidden layer ที่มากกว่า ดังรูปที่ \ref{fig:deep-network} เนื่องในหลายครั้งการแก้ปัญหาที่ซับซ้อนมากจะไม่สามารถแก้ได้ด้วยการมี hidden layer น้อยๆได้
+  \begin{center}
+  \begin{figure}[t]
+    \captionsetup{justification=centering}
+    \centering
+    \includegraphics[width=4in]{deep_network.png}
+  \captionsource{ภาพตัวอย่างการทำงานของโครงข่ายประสาทเทียมเชิงลึก (Deep neural network)}{https://i.stack.imgur.com/1bCQl.png}
+  \label{fig:deep-network}
+ \hrulefill
+\end{figure}
+ \end{center}
+\section{Convolutional neural network \cite{Deep}}
+Convolutional neural network เป็นเทคนิคหนึ่งของ deep neural network โดยโครงสร้างของ convolution neural network นั้นจะประกอบด้วย 3 ชั้นคือ Convolution layers , Pooling layers , Fully connected layer ดังรูป \ref{fig:convo-network}
+
+Convolution layers เป็นชั้นที่ทำหน้าที่เหมือนกับการสกัดลักษณะเด่น (features) ของข้อมูลป้อนเข้าโดยจะทำการเลือกขนาดของตัวกรอง (filter) เช่น 5x5x3 โดยเลข 3 จะแทน RGB
+
+Pooling layers เป็นชั้นที่จะทำหน้าที่ลดขนาดของข้อมูลที่จะประมวลผลลง
+โดยที่นิยมใช้คือ max pooling
+
+Fully connected layer เป็นชั้นที่จะรวมค่าคำตอบที่ได้รับจาก pooling layers และ convolution layers เพื่อนำไปจำแนกประเภท
+
+ \begin{center}
+  \begin{figure}[t]
+    \captionsetup{justification=centering}
+    \centering
+    \includegraphics[width=5in]{convo.png}
+  \captionsource{ตัวอย่างการทำงานของ convolutional neural network}{https://www.clarifai.com/technology}
+  \label{fig:convo-network}
+  \hrulefill
+\end{figure}
+ \end{center}
+\section{Caffe \cite{Caffe}}
+Caffe เป็นเฟรมเวิรค์สำหรับ Convolution neural network ที่ได้รับความนิยมเนื่องจากทำให้สามารถ
+พัฒนาได้รวดเร็วและมีความยืดหยุ่นในการใช้งานโดยจะแบ่งการทำงานเป็นชั้น (layer)ดังนี้
+\subsection {vision layers} เป็นชั้นที่ข้อมูลนำเข้าและข้อมูลผลลัพธ์เป็นรูปภาพโดยจะดึงลักษณะเด่นของภาพเช่นสี,พื้นที่ของภาพโดยประกอบด้วย
+
+Convolution layer จะรับข้อมูลนำเข้าเป็นรูปภาพและดึงลักษณะเด่นของรูปภาพออกมาด้วยตัวกรอง (filter) ออกมาเป็นผลลัพธ์
+
+Pooling layer รวมผลลัพธ์ที่ได้ convolution layer
+
+Local Response Normalize (LRN) วางกรอบค่าของตัวเลขที่ได้ให้อยู่ใน
+ขอบเขตที่ต้องการเช่นให้อยู่ระหว่าง -1 ถึง 1 เพื่อให้เครื่องรับภาระในการประมวลผลลดลง
+\subsection {loss layers} เป็นชั้นที่ทำการเรียนรู้และเปรียบเทียบผลลัพธ์ที่ได้จากโมเดลกับผลลัพธ์ที่กำหนดเพื่อปรับค่าน้ำหนักด้วยวิธีการ backpropagation ตัวอย่างของ loss layer
+
+Softmax เป็นการคำนวณ logarithm ของความน่าจะเป็นตามสมการ
+\[f_j(z)=\frac{e^{z_j}}{\Sigma_{k^{e^{z_k}}}}\]
+โดยที่ \(f_j(z)\) คือ softmax function
+
+\(e\) มีค่าประมาณ 2.71828
+
+\(z_j  ,  z_k\) คือค่าคะแนนความคลาดเคลื่อนที่ได้จากชั้นก่อนหน้า
+
+\subsection {activation layers} เป็นชั้นที่รับข้อมูลนำเข้าเพื่อประมวลผลโดยจะทำงานแบบเดียวกับนิวรอน
+ตัวอย่างของ activation layers
+
+Sigmoid เป็นฟังก์ชั่น เป็นฟังก์ชั่นที่สร้างตัวเลขในช่วงระหว่าง 0 ถึง 1 โดยตัวเลขที่มีค่าไปทางบวกมาก จะเข้าใกล้ 1 ตามสมการ
+\[\sigma(x) = \frac{1}{1+e^x}\]
+    โดยที่ \(\sigma(x)\) คือ sigmoid function
+    
+    \(x\) คือผลลัพธ์ที่ได้จาก \(\sum_{i=1}^N x_i w_{ij} + \theta_j\)
+
+    \(e\) มีค่าประมาณ 2.71828
+
+\subsection{data layers} เป็นชั้นที่ทำการรับข้อมูลเพื่อส่งไปเป็นข้อมูลนำเข้าให้กับ layer อื่น
+\subsection {common layers}ตัวอย่างของ common layers มีดังนี้
+
+linear product เป็นกระบวนการเชื่อมต่อโดยข้อมูลนำเข้าเป็นเวกเตอร์โดยผลลัพธ์จะเป็นเวกเตอร์ที่มีความลึกเท่ากับจำนวนลักษณะเด่น (features)ที่สกัดได้
+
+dropout เป็นการป้องกันการเกิด overfitting โดยการปรับโครงสร้างของโหนดใน
+โครงข่ายประสาทเทียม
+
